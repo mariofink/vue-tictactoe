@@ -7,6 +7,7 @@
       </div>
       <div class="game-info">
         <p>{{status}}</p>
+        <moves :history="history"></moves>
       </div>
     </div>
   </div>
@@ -14,11 +15,13 @@
 
 <script>
 import Board from "./Board.vue";
+import Moves from "./Moves.vue";
 
 export default {
   name: "game",
   components: {
-    Board
+    Board,
+    Moves
   },
   data: () => {
     return {
@@ -46,7 +49,15 @@ export default {
   methods: {
     onSquareSelection(event) {
       if (this.winner) return;
-      this.$set(this.current.squares, event.index, this.player);
+      const squares = this.current.squares.slice(
+        0,
+        this.current.squares.length
+      );
+      squares[event.index] = this.player;
+      this.history.push({
+        squares: squares
+      });
+      this.stepNumber = this.history.length - 1;
       this.xIsNext = !this.xIsNext;
       this.updateStatus();
     },
