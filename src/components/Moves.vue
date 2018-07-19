@@ -3,7 +3,7 @@
     <h3>Moves</h3>
     <ul>
       <li v-for="(entry, index) in history" :key="index">
-        <button @click="moveTo(index)">
+        <button @click="moveTo(index)" :class="{highlight: isCurrentStep(index)}">
           {{buttonCaption(index, entry)}}
         </button>
       </li>
@@ -14,7 +14,7 @@
 <script>
 export default {
   name: "moves",
-  props: ["history"],
+  props: ["history", "currentStep"],
   methods: {
     moveTo(index) {
       this.$emit("move", index);
@@ -27,8 +27,17 @@ export default {
         return `Go to move #${index} 
         (Row: ${entry.position.row} Column: ${entry.position.col})`;
       }
+    },
+    isCurrentStep(index) {
+      return index === this.currentStep;
     }
   }
 };
 </script>
+
+<style scoped>
+.highlight {
+  font-weight: bold;
+}
+</style>
 

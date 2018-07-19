@@ -7,7 +7,7 @@
       </div>
       <div class="game-info">
         <div>{{status}}</div>
-        <moves :history="history" @move="(index) => moveTo(index)"></moves>
+        <moves :history="history" :currentStep="stepNumber" @move="(index) => moveTo(index)"></moves>
       </div>
     </div>
   </div>
