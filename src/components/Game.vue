@@ -1,12 +1,12 @@
 <template>
   <div>
-    <h1>Tic Tac Toe</h1>
+    <h1>Tic Tac Toe (Vue.js)</h1>
     <div class="game">
       <div class="game-board">
         <board :squares="current.squares" @squareSelection="onSquareSelection"></board>
       </div>
       <div class="game-info">
-        <p>{{status}}</p>
+        <div>{{status}}</div>
         <moves :history="history" @move="(index) => moveTo(index)"></moves>
       </div>
     </div>
@@ -27,7 +27,8 @@ export default {
     return {
       history: [
         {
-          squares: Array(9).fill(null)
+          squares: Array(9).fill(null),
+          position: null
         }
       ],
       xIsNext: true,
@@ -57,7 +58,8 @@ export default {
       if (this.winner || squares[event.index]) return;
       squares[event.index] = this.player;
       this.history.push({
-        squares: squares
+        squares: squares,
+        position: getPosition(parseInt(event.index, 10))
       });
       this.stepNumber = this.history.length - 1;
       this.xIsNext = !this.xIsNext;
@@ -101,5 +103,27 @@ function calculateWinner(squares) {
     }
   }
   return null;
+}
+
+/**
+ * Get column and row number of a square index
+ * @param {*} i
+ */
+function getPosition(i) {
+  let row, col;
+  if (i > 5) {
+    row = 3;
+    col = i - 5;
+  } else if (i > 2) {
+    row = 2;
+    col = i - 2;
+  } else {
+    row = 1;
+    col = i + 1;
+  }
+  return {
+    row,
+    col
+  };
 }
 </script>
