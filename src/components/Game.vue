@@ -6,7 +6,7 @@
         <board :squares="current.squares" @squareSelection="onSquareSelection"></board>
       </div>
       <div class="game-info">
-        <p>Next player: {{player}}</p>
+        <p>{{status}}</p>
       </div>
     </div>
   </div>
@@ -28,7 +28,8 @@ export default {
         }
       ],
       xIsNext: true,
-      stepNumber: 0
+      stepNumber: 0,
+      status: ""
     };
   },
   computed: {
@@ -37,13 +38,51 @@ export default {
     },
     player: function() {
       return this.xIsNext ? "X" : "O";
+    },
+    winner: function() {
+      return calculateWinner(this.current.squares);
     }
   },
   methods: {
     onSquareSelection(event) {
+      if (this.winner) return;
       this.$set(this.current.squares, event.index, this.player);
       this.xIsNext = !this.xIsNext;
+      this.updateStatus();
+    },
+    updateStatus() {
+      if (this.winner) {
+        this.status = `Player ${this.winner} won!`;
+      } else {
+        this.status = "Next player: " + this.player;
+      }
     }
+  },
+  mounted: function() {
+    this.updateStatus();
+  },
+  updated: function() {
+    this.updateStatus();
   }
 };
+
+function calculateWinner(squares) {
+  const lines = [
+    [0, 1, 2],
+    [3, 4, 5],
+    [6, 7, 8],
+    [0, 3, 6],
+    [1, 4, 7],
+    [2, 5, 8],
+    [0, 4, 8],
+    [2, 4, 6]
+  ];
+  for (let line of lines) {
+    const [a, b, c] = line;
+    if (squares[a] && squares[a] === squares[b] && squares[a] === squares[c]) {
+      return squares[a];
+    }
+  }
+  return null;
+}
 </script>
