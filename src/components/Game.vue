@@ -7,7 +7,7 @@
       </div>
       <div class="game-info">
         <p>{{status}}</p>
-        <moves :history="history"></moves>
+        <moves :history="history" @move="(index) => moveTo(index)"></moves>
       </div>
     </div>
   </div>
@@ -48,11 +48,13 @@ export default {
   },
   methods: {
     onSquareSelection(event) {
-      if (this.winner) return;
+      this.history = this.history.slice(0, this.stepNumber + 1);
       const squares = this.current.squares.slice(
         0,
         this.current.squares.length
       );
+      // do nothing if game already ended, or the square is already taken
+      if (this.winner || squares[event.index]) return;
       squares[event.index] = this.player;
       this.history.push({
         squares: squares
@@ -67,6 +69,10 @@ export default {
       } else {
         this.status = "Next player: " + this.player;
       }
+    },
+    moveTo(step) {
+      this.stepNumber = step;
+      this.xIsNext = step % 2 === 0;
     }
   },
   mounted: function() {
