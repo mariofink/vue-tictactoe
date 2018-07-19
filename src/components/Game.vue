@@ -1,7 +1,7 @@
 <template>
   <div>
     <h1>Tic Tac Toe</h1>
-    <board :squares=current.squares></board>
+    <board :squares="current.squares" @squareSelection="onSquareSelection"></board>
   </div>
 </template>
 
@@ -27,6 +27,11 @@ export default {
   computed: {
     current: function() {
       return this.history[this.stepNumber];
+    }
+  },
+  methods: {
+    onSquareSelection(event) {
+      console.log("square selected", event.index);
     }
   }
 };

@@ -1,19 +1,19 @@
 <template>
   <div>
     <div class="board-row">
-      <square></square>
-      <square></square>
-      <square></square>
+      <square index="0" @selection="onSquareSelection"></square>
+      <square index="1" @selection="onSquareSelection"></square>
+      <square index="2" @selection="onSquareSelection"></square>
     </div>
     <div class="board-row">
-      <square></square>
-      <square></square>
-      <square></square>
+      <square index="3" @selection="onSquareSelection"></square>
+      <square index="4" @selection="onSquareSelection"></square>
+      <square index="5" @selection="onSquareSelection"></square>
     </div>
     <div class="board-row">
-      <square></square>
-      <square></square>
-      <square></square>
+      <square index="6" @selection="onSquareSelection"></square>
+      <square index="7" @selection="onSquareSelection"></square>
+      <square index="8" @selection="onSquareSelection"></square>
     </div>
   </div>
 </template>
@@ -26,6 +26,11 @@ export default {
   components: {
     Square
   },
-  props: ["squares"]
+  props: ["squares"],
+  methods: {
+    onSquareSelection(event) {
+      this.$emit("squareSelection", event);
+    }
+  }
 };
 </script>
