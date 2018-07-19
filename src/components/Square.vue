@@ -1,13 +1,13 @@
 <template>
   <div>
-    <button class="square" @click="clickHandler"></button>
+    <button class="square" @click="clickHandler">{{value}}</button>
   </div>
 </template>
 
 <script>
 export default {
   name: "square",
-  props: ["index"],
+  props: ["index", "value"],
   methods: {
     clickHandler() {
       this.$emit("selection", { index: this.index });

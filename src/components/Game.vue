@@ -27,11 +27,15 @@ export default {
   computed: {
     current: function() {
       return this.history[this.stepNumber];
+    },
+    player: function() {
+      return this.xIsNext ? "X" : "O";
     }
   },
   methods: {
     onSquareSelection(event) {
-      console.log("square selected", event.index);
+      this.$set(this.current.squares, event.index, this.player);
+      this.xIsNext = !this.xIsNext;
     }
   }
 };
