@@ -25,6 +25,7 @@ export default {
   name: "board",
   components: {
     Square
-  }
+  },
+  props: ["squares"]
 };
 </script>

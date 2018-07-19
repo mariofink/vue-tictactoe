@@ -1,7 +1,7 @@
 <template>
   <div>
     <h1>Tic Tac Toe</h1>
-    <board></board>
+    <board :squares=current.squares></board>
   </div>
 </template>
 
@@ -12,6 +12,22 @@ export default {
   name: "game",
   components: {
     Board
+  },
+  data: () => {
+    return {
+      history: [
+        {
+          squares: Array(9).fill(null)
+        }
+      ],
+      xIsNext: true,
+      stepNumber: 0
+    };
+  },
+  computed: {
+    current: function() {
+      return this.history[this.stepNumber];
+    }
   }
 };
 </script>
