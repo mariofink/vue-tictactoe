@@ -2,9 +2,9 @@
   <div>
     <h3>Moves</h3>
     <ul>
-      <li v-for="(entry, index) in history" :key="index">
-        <button @click="moveTo(index)" :class="{highlight: isCurrentStep(index)}">
-          {{buttonCaption(index, entry)}}
+      <li v-for="(entry, move) in history" :key="move">
+        <button @click="moveTo(move)" :class="{highlight: isCurrentStep(move)}">
+          {{buttonCaption(move, entry)}}
         </button>
       </li>
     </ul>
@@ -16,20 +16,20 @@ export default {
   name: "moves",
   props: ["history", "currentStep"],
   methods: {
-    moveTo(index) {
-      this.$emit("move", index);
+    moveTo(move) {
+      this.$emit("move", move);
     },
-    buttonCaption: function(index, entry) {
-      if (index === 0) {
+    buttonCaption: function(move, entry) {
+      if (move === 0) {
         return `Go to game start`;
       }
-      if (index > 0 && entry.position !== null) {
-        return `Go to move #${index} 
+      if (move > 0 && entry.position !== null) {
+        return `Go to move #${move} 
         (Row: ${entry.position.row} Column: ${entry.position.col})`;
       }
     },
-    isCurrentStep(index) {
-      return index === this.currentStep;
+    isCurrentStep(move) {
+      return move === this.currentStep;
     }
   }
 };
