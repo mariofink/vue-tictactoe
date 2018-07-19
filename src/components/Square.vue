@@ -1,7 +1,5 @@
 <template>
-  <div>
-    <button class="square" @click="clickHandler">{{value}}</button>
-  </div>
+  <button class="square" @click="clickHandler">{{value}}</button>
 </template>
 
 <script>

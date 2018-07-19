@@ -1,7 +1,14 @@
 <template>
   <div>
     <h1>Tic Tac Toe</h1>
-    <board :squares="current.squares" @squareSelection="onSquareSelection"></board>
+    <div class="game">
+      <div class="game-board">
+        <board :squares="current.squares" @squareSelection="onSquareSelection"></board>
+      </div>
+      <div class="game-info">
+        <p>Next player: {{player}}</p>
+      </div>
+    </div>
   </div>
 </template>
 
