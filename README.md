@@ -1,5 +1,7 @@
 # tictactoe
 
+[![Greenkeeper badge](https://badges.greenkeeper.io/mariofink/vue-tictactoe.svg)](https://greenkeeper.io/)
+
 TicTacToe game made with Vue.js Features and implementation are based on the [officical React tutorial](https://reactjs.org/tutorial/tutorial.html)
 
 ## Project setup
